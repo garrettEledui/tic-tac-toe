@@ -9,9 +9,8 @@ This app uses MUI. I apologize for the heavy weight library. It will be a beefin
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
-## Available Scripts
 
-In the project directory, you can run:
+Start the app by running:
 
 ### `npm start`
 
