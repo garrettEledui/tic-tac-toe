@@ -29,14 +29,14 @@ export const BoardSpace = (props) => {
 
     return(
         <>
-        <Card sx={{ minWidth: 275 }} onClick={() => {
+        <Card sx={{ minWidth: 275, minHeight: 250 }} onClick={() => {
             // console.log(" gameBoardCoordinate: "  ,  gameBoardCoordinate.gameBoardCoordinate )
             props.updateBoard(props.gameBoardCoordinate)
             // setData("Test 2")
         }}>
             <CardActionArea>
                 <CardContent>
-                    <Typography variant="h5" component="div">
+                    <Typography variant="h1" component="div">
                         {/* {props.label} */}
                         {props.gameBoardCoordinate.value}
                         {/* {data} */}

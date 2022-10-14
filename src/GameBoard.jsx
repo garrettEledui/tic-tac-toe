@@ -97,6 +97,7 @@ let board = [
 export function GameBoard() {
 
 
+  const [player, togglePlayer] = useState("TeamO")
   const [label, setLabel] = useState("Test");
 
   useEffect(() => {
@@ -116,36 +117,35 @@ export function GameBoard() {
       
       if(element.row === boardUpdateData.row && element.colomn === boardUpdateData.colomn)
       {
-        console.log("element: " ,element)
-        element.value = "O"
-        console.log("element: " ,element)
-        setLabel("O")
-
+        if(player === "TeamO")
+        {
+          console.log("element: " ,element)
+          element.value = "O"
+          console.log("element: " ,element)
+          togglePlayer("TeamX")
+        }
+        else if(player === "TeamX")
+        {
+          element.value = "X"
+          togglePlayer("TeamO")
+        }
       }
-      
     });
 
 
-
+    // console.log("board: ", board)
+    // console.log("boardUpdateData: ", boardUpdateData)
+    // console.log("row: ", boardUpdateData.row)
+    // console.log("colomn: ", boardUpdateData.colomn)
+    // console.log("value: ", boardUpdateData.value)
     
 
-
-    console.log("board: ", board)
-    console.log("boardUpdateData: ", boardUpdateData)
-    console.log("row: ", boardUpdateData.row)
-    console.log("colomn: ", boardUpdateData.colomn)
-    console.log("value: ", boardUpdateData.value)
-    
-
-    
     
   }
     return(
         <>
-        {/* <Box sx={{ flexGrow: 1}}> */}
           <Grid container spacing={2}>
           <Grid item  xs={3} md={4}>
-                {/* <div>{board[0].value}</div> */}
                 <BoardSpace gameBoardCoordinate={board[0]} updateBoard={updateBoard}/>
               </Grid>
               <Grid item  xs={3} md={4}>
@@ -172,35 +172,6 @@ export function GameBoard() {
               <Grid item  xs={3} md={4}>
                 <BoardSpace gameBoardCoordinate={board[8]} updateBoard={updateBoard}/>
               </Grid>
-
-
-              {/* <Grid item  xs={3} md={4}>
-                  <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 0, "colomn" : 0} , value : gameBoard[0].colomn0}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 0, "colomn" : 1} , value : gameBoard[0].colomn1}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 0, "colomn" : 2} , value : gameBoard[0].colomn2}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 1, "colomn" : 0} , value : gameBoard[1].colomn0}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 1, "colomn" : 1} , value : gameBoard[1].colomn1}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 1, "colomn" : 2} , value : gameBoard[1].colomn1}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 2, "colomn" : 0} , value : gameBoard[2].colomn0}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 2, "colomn" : 1} , value : gameBoard[2].colomn1}} updateBoard={updateBoard}/>
-              </Grid>
-              <Grid item  xs={3} md={4}>
-                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 2, "colomn" : 2} , value : gameBoard[2].colomn2}} updateBoard={updateBoard}/>
-              </Grid> */}
           </Grid>
         {/* </Box> */}
         
