@@ -1,7 +1,5 @@
 export function CheckForLegalMove(boardUpdateData, board) {
 
-    // console.log("Check for legal move: ", boardUpdateData)
-
     let isLegal = true
 
     board.forEach(element => {
@@ -10,7 +8,6 @@ export function CheckForLegalMove(boardUpdateData, board) {
         {
             if(element.value === undefined)
             {
-                // console.log("This is a free space.")
                 isLegal =  true
             }
             else

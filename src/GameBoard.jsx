@@ -4,79 +4,10 @@ import Grid from '@mui/material/Grid';
 import {BoardSpace} from './components/BoardSpace';
 import { CheckForLegalMove } from './helperMethods/CheckForLegalMove';
 import { CheckForWin } from './helperMethods/CheckForWin';
+import { Typography } from '@mui/material';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
 
-// let gameBoard = [
-//   [ 
-//     {
-//       colomn : 0,
-//       value : undefined 
-//     },
-//     {
-//       colomn : 1,
-//       value : undefined 
-//     },
-//     {
-//       colomn : 2,
-//       value : undefined 
-//     },
-//   ],
-//   [ 
-//     {
-//       colomn : 0,
-//       value : undefined 
-//     },
-//     {
-//       colomn : 1,
-//       value : "O" 
-//     },
-//     {
-//       colomn : 2,
-//       value : undefined 
-//     },
-//   ], 
-//   [ 
-//     {
-//       colomn : 0,
-//       value : undefined 
-//     },
-//     {
-//       colomn : 1,
-//       value : undefined 
-//     },
-//     {
-//       colomn : 2,
-//       value : undefined 
-//     },
-//   ], 
-  // { 
-  //   colomn0 : undefined, 
-  //   colomn1 : undefined, 
-  //   colomn2 : undefined
-  // },  
-  // { 
-  //   colomn0 : undefined, 
-  //   colomn1 : undefined, 
-  //   colomn2 : undefined
-  // },  
-// ]
-
-// let gameBoard = { 
-//     row0 :  { 
-//       colomn0 : undefined, 
-//       colomn1 : undefined, 
-//       colomn2 : undefined
-//     }, 
-//     row1 : { 
-//       colomn0 : undefined, 
-//       colomn1 : undefined, 
-//       colomn2 : undefined
-//     },  
-//     row2 : { 
-//       colomn0 : undefined, 
-//       colomn1 : undefined, 
-//       colomn2 : undefined
-//     }, 
-//   }
 
 let board = [
   {"row" : 0, "colomn" : 0, "value" : undefined},
@@ -94,15 +25,12 @@ let board = [
   
 
 
-// board[0].value = "O"
-
-
 
 export function GameBoard() {
 
 
   const [player, togglePlayer] = useState("TeamO")
-  // const [isLegal, setIsLegal] = useState(true)
+  const [winner, setWinner] = useState("")
 
   let isLegal = true
   
@@ -117,13 +45,8 @@ export function GameBoard() {
 
   function updateBoard(boardUpdateData)
   {
-
-    // setIsLegal(CheckForLegalMove(boardUpdateData, board))
-
     isLegal = CheckForLegalMove(boardUpdateData, board)
-    // console.log(isLegal)
 
-  
     if(isLegal)
     {
       board.forEach(element => {
@@ -147,24 +70,50 @@ export function GameBoard() {
       if(winner !== undefined)
       {
         console.log("winnner: " , winner)
+        setWinner(winner)
       }
-    }
+    }    
+  }
 
+
+function ResetGame() {
+
+
+  console.log("Reset game")
+
+    board = [
+      {"row" : 0, "colomn" : 0, "value" : undefined},
+      {"row" : 0, "colomn" : 1, "value" : undefined},
+      {"row" : 0, "colomn" : 2, "value" : undefined},
     
-
-
-    // console.log("board: ", board)
-    // console.log("boardUpdateData: ", boardUpdateData)
-    // console.log("row: ", boardUpdateData.row)
-    // console.log("colomn: ", boardUpdateData.colomn)
-    // console.log("value: ", boardUpdateData.value)
+      {"row" : 1, "colomn" : 0, "value" : undefined},
+      {"row" : 1, "colomn" : 1, "value" : undefined},
+      {"row" : 1, "colomn" : 2, "value" : undefined},
     
-
-    
+      {"row" : 2, "colomn" : 0, "value" : undefined},
+      {"row" : 2, "colomn" : 1, "value" : undefined},
+      {"row" : 2, "colomn" : 2, "value" : undefined},
+    ]
+    setWinner("") 
+    togglePlayer("TeamO")
   }
     return(
         <>
-        {/* <Box sx={{ flexGrow: 1}}> */}
+        {winner === "" ?
+          <Box>
+            <Typography variant="h2">{player}'s turn </Typography>
+          </Box>
+        :
+          <Box sx={{
+            minHeight: 150,
+          }}>
+            <Typography variant="h2">{winner} is the Winner! </Typography>
+            <Button variant='contained' onClick={() => {
+                ResetGame()
+              }}>Play Again</Button>
+          </Box>
+        }
+        
           <Grid container spacing={2}>
           <Grid item  xs={3} md={4}>
                 <BoardSpace gameBoardCoordinate={board[0]} updateBoard={updateBoard}/>
@@ -194,8 +143,6 @@ export function GameBoard() {
                 <BoardSpace gameBoardCoordinate={board[8]} updateBoard={updateBoard}/>
               </Grid>
           </Grid>
-        {/* </Box> */}
-        
         </>
     );
 }
