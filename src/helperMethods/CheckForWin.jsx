@@ -45,6 +45,7 @@ export function CheckForWin(board) {
             return board[1].value
         }
     }
+    // else if(board[2].value === board[5].value && board[5].value === board[8].value)
     else if(board[2].value === board[5].value && board[5].value === board[8].value)
     {
         if(board[2].value != undefined)

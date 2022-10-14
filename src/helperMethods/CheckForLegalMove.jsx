@@ -14,7 +14,6 @@ export function CheckForLegalMove(boardUpdateData, board) {
             {
                 isLegal =  false
             }
-            
         }
       });
     return isLegal
