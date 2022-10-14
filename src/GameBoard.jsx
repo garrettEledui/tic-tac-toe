@@ -2,50 +2,52 @@ import './App.css';
 import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
 import {BoardSpace} from './components/BoardSpace';
+import { CheckForLegalMove } from './helperMethods/CheckForLegalMove';
+import { CheckForWin } from './helperMethods/CheckForWin';
 
-let gameBoard = [
-  [ 
-    {
-      colomn : 0,
-      value : undefined 
-    },
-    {
-      colomn : 1,
-      value : undefined 
-    },
-    {
-      colomn : 2,
-      value : undefined 
-    },
-  ],
-  [ 
-    {
-      colomn : 0,
-      value : undefined 
-    },
-    {
-      colomn : 1,
-      value : "O" 
-    },
-    {
-      colomn : 2,
-      value : undefined 
-    },
-  ], 
-  [ 
-    {
-      colomn : 0,
-      value : undefined 
-    },
-    {
-      colomn : 1,
-      value : undefined 
-    },
-    {
-      colomn : 2,
-      value : undefined 
-    },
-  ], 
+// let gameBoard = [
+//   [ 
+//     {
+//       colomn : 0,
+//       value : undefined 
+//     },
+//     {
+//       colomn : 1,
+//       value : undefined 
+//     },
+//     {
+//       colomn : 2,
+//       value : undefined 
+//     },
+//   ],
+//   [ 
+//     {
+//       colomn : 0,
+//       value : undefined 
+//     },
+//     {
+//       colomn : 1,
+//       value : "O" 
+//     },
+//     {
+//       colomn : 2,
+//       value : undefined 
+//     },
+//   ], 
+//   [ 
+//     {
+//       colomn : 0,
+//       value : undefined 
+//     },
+//     {
+//       colomn : 1,
+//       value : undefined 
+//     },
+//     {
+//       colomn : 2,
+//       value : undefined 
+//     },
+//   ], 
   // { 
   //   colomn0 : undefined, 
   //   colomn1 : undefined, 
@@ -56,7 +58,7 @@ let gameBoard = [
   //   colomn1 : undefined, 
   //   colomn2 : undefined
   // },  
-]
+// ]
 
 // let gameBoard = { 
 //     row0 :  { 
@@ -94,43 +96,61 @@ let board = [
 
 // board[0].value = "O"
 
+
+
 export function GameBoard() {
 
 
   const [player, togglePlayer] = useState("TeamO")
-  const [label, setLabel] = useState("Test");
+  // const [isLegal, setIsLegal] = useState(true)
+
+  let isLegal = true
+  
+
 
   useEffect(() => {
     
     
 
-    console.log("gameBoard: " + JSON.stringify(gameBoard) )
+    
   }, []);
 
   function updateBoard(boardUpdateData)
   {
 
-    
+    // setIsLegal(CheckForLegalMove(boardUpdateData, board))
 
-    board.forEach(element => {
+    isLegal = CheckForLegalMove(boardUpdateData, board)
+    // console.log(isLegal)
+
+  
+    if(isLegal)
+    {
+      board.forEach(element => {
     
-      
-      if(element.row === boardUpdateData.row && element.colomn === boardUpdateData.colomn)
+        if(element.row === boardUpdateData.row && element.colomn === boardUpdateData.colomn)
+        {
+          if(player === "TeamO")
+          {
+            element.value = "O"
+            togglePlayer("TeamX")
+          }
+          else if(player === "TeamX")
+          {
+            element.value = "X"
+            togglePlayer("TeamO")
+          }
+        }
+      });
+
+      let winner = CheckForWin(board)
+      if(winner !== undefined)
       {
-        if(player === "TeamO")
-        {
-          console.log("element: " ,element)
-          element.value = "O"
-          console.log("element: " ,element)
-          togglePlayer("TeamX")
-        }
-        else if(player === "TeamX")
-        {
-          element.value = "X"
-          togglePlayer("TeamO")
-        }
+        console.log("winnner: " , winner)
       }
-    });
+    }
+
+    
 
 
     // console.log("board: ", board)
@@ -144,6 +164,7 @@ export function GameBoard() {
   }
     return(
         <>
+        {/* <Box sx={{ flexGrow: 1}}> */}
           <Grid container spacing={2}>
           <Grid item  xs={3} md={4}>
                 <BoardSpace gameBoardCoordinate={board[0]} updateBoard={updateBoard}/>
