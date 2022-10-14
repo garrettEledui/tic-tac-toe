@@ -1,17 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import * as React from 'react';
-import { styled } from '@mui/material/styles';
-import Paper from '@mui/material/Paper';
+import React, { useState, useEffect } from 'react';
 import Grid from '@mui/material/Grid';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Card from '@mui/material/Card';
-import Typography from '@mui/material/Typography';
-import { CardActionArea } from '@mui/material';
-import BoardSpace from './components/BoardSpace';
+import {BoardSpace} from './components/BoardSpace';
 
 
 
@@ -32,34 +22,58 @@ let gameBoard = {
       "colomn2" : undefined
     }, 
   }
-  
-
-const Item = styled(Paper)(({ theme }) => ({
-  backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-  ...theme.typography.body2,
-  padding: theme.spacing(1),
-  textAlign: 'center',
-  color: theme.palette.text.secondary,
-}));
 
 
-export default function GameBoard() {
+
+
+export function GameBoard() {
+
+
+
+  useEffect(() => {
+    
+    console.log("gameBoard: " + JSON.stringify(gameBoard) )
+  }, [gameBoard]);
+
+  function updateBoard(gameBoardCoordinate)
+  {
+    console.log("update board: ", gameBoardCoordinate )
+    
+  }
     return(
         <>
-        <Grid container spacing={2}>
-            <Grid item xs={6} md={8}>
-                <BoardSpace/>
-            </Grid>
-            <Grid item xs={6} md={4}>
-                <BoardSpace/>
-            </Grid>
-            <Grid item xs={6} md={4}>
-                <BoardSpace/>
-            </Grid>
-            <Grid item xs={6} md={8}>
-                <BoardSpace/>
-            </Grid>
-        </Grid>
+        {/* <Box sx={{ flexGrow: 1}}> */}
+          <Grid container spacing={2}>
+              <Grid item  xs={3} md={4}>
+                  <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 0, "colomn" : 0} , value : gameBoard.row0.colomn0}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 0, "colomn" : 1} , value : gameBoard.row0.colomn1}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 0, "colomn" : 2} , value : gameBoard.row0.colomn2}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 1, "colomn" : 0} , value : gameBoard.row1.colomn0}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 1, "colomn" : 1} , value : gameBoard.row1.colomn1}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 1, "colomn" : 2} , value : gameBoard.row1.colomn1}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 2, "colomn" : 0} , value : gameBoard.row2.colomn0}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 2, "colomn" : 1} , value : gameBoard.row2.colomn1}} updateBoard={updateBoard}/>
+              </Grid>
+              <Grid item  xs={3} md={4}>
+                <BoardSpace gameBoardCoordinate={ {boardLocation : {"row" : 2, "colomn" : 2} , value : gameBoard.row2.colomn2}} updateBoard={updateBoard}/>
+              </Grid>
+          </Grid>
+        {/* </Box> */}
+        
         </>
     );
 }
